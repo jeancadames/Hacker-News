@@ -29,7 +29,7 @@ export const Pagination = ({newsPerPage, totalNews, paginate}) => {
                 </i>
                 {pageNumbers.map(number => (
                     <li key={number}>
-                        <a className={`pagination-page ${activePage === number ? 'active-page' : ''}  `} onClick={() => handleOnClick(number)} href='/'>{number}</a>
+                        <a className={`pagination-page ${activePage === number ? 'active-page' : ''}  `} onClick={() => handleOnClick(number)} href='/#'>{number}</a>
                     </li>
                 ))}
             <i  

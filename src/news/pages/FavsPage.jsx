@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { NewsItem } from "../components/NewsItem";
 import { Pagination } from "../components/Pagination";
 import { getPagination } from "../helpers/getPagination";
@@ -7,11 +8,11 @@ export const FavsPage = () => {
   const {currentNew, newsPerPage, setCurrentPage} = getPagination(favsNews);
   //change the page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
+  
 
   return (
     <>
-    {favsNews 
+    {favsNews
     ? (
       <>
         <div className="news-section">

@@ -6,20 +6,30 @@ export const NewsItem = ({hackerNews}) => {
   const [toggle, setToggle] = useState([]);
   const [solidIcon, setSolidIcon] = useState([]);
 
+  // const idNewFavLSUE = JSON.parse(localStorage.getItem('idNewFav'));
+
+
   let favNewsArray = [];
   let idFavNewsArray = [];
 
-  const favNewsLS = JSON.parse(localStorage.getItem('favoritesNews'));
-  const idNewFavLS = JSON.parse(localStorage.getItem('idNewFav'));
 
   const handleClickNews = (hackerNew) => {
     window.open(hackerNew.url); 
   }
 
-  const onClickFavNew = (hackerNew, e) => {
-    if(e.detail === 1){
+  const onClickFavNew = (hackerNew) => {
+    
+  const favNewsLS = JSON.parse(localStorage.getItem('favoritesNews'));
+  const idNewFavLS = JSON.parse(localStorage.getItem('idNewFav'));
+
       if(favNewsLS && idNewFavLS){  
         if(idNewFavLS.includes(hackerNew.id)){
+          const indexId = idNewFavLS.indexOf(hackerNew.id)
+          const indexNews = favNewsLS.indexOf(hackerNew);
+          idNewFavLS.splice(indexId, 1);
+          favNewsLS.splice(indexNews, 1);
+          localStorage.setItem('idNewFav', JSON.stringify(idNewFavLS));
+          localStorage.setItem('favoritesNews', JSON.stringify(favNewsLS));
           return;
         }
   
@@ -38,34 +48,14 @@ export const NewsItem = ({hackerNews}) => {
       localStorage.setItem('idNewFav', JSON.stringify(toggle));
       localStorage.setItem('favoritesNews', JSON.stringify(favNew));
       setSolidIcon(idFavNewsArray);
-    }
-    else if(e.detail === 2){
-      let idNewFavLS = JSON.parse(localStorage.getItem('idNewFav'));
-      let favNewsLS = JSON.parse(localStorage.getItem('favoritesNews'));
-
-      // console.log(idNewFavLS);
-      if(idNewFavLS.length > 0 && favNewsLS.length >0){
-        const indexId = idNewFavLS.indexOf(hackerNew.id)
-        const indexNews = favNewsLS.indexOf(hackerNew);
-        idNewFavLS.splice(indexId, 1);
-        favNewsLS.splice(indexNews, 1);
-        localStorage.setItem('idNewFav', JSON.stringify(idNewFavLS));
-        localStorage.setItem('favoritesNews', JSON.stringify(favNewsLS));
-
-      }
-    }
-
-    
-
-  }
+}
 
   useEffect(() => {
     const idNewFavLSUE = JSON.parse(localStorage.getItem('idNewFav'));
 
     setSolidIcon(idNewFavLSUE);
-  }, [])
-  
-
+  }, [hackerNews.id])
+   
   return (
         hackerNews.map((hackerNew) => (
           <>
@@ -74,9 +64,8 @@ export const NewsItem = ({hackerNews}) => {
                   <p className="news-info">{hackerNew.title}</p>
                 </div>
                 <div className="fav-btn">
-                  <i 
-                    onClick={(e)=>onClickFavNew(hackerNew, e)}
-                    // className={ idNewFavLS ? `${idNewFavLS.includes(hackerNew.id) ? 'fa-solid' :'fa-regular' } fa-heart` : 'fa-regular fa-heart'}
+                <i 
+                    onClick={()=>onClickFavNew(hackerNew)}
                     className={ solidIcon ? `${solidIcon.includes(hackerNew.id) ? 'fa-solid' :'fa-regular' } fa-heart` : 'fa-regular fa-heart' }
                     >
                   </i>

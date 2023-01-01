@@ -7,9 +7,14 @@ export const NewsDropdown = ({filterValueSelected}) => {
   const options = ['Angular', 'React', 'Vuejs' ];
 
   const filterValueLS = localStorage.getItem('filterValue');
-  
+
   useEffect(() => {
-    setSelected(filterValueLS)
+    if(filterValueLS === null || filterValueLS === undefined){
+      setSelected('Select your news');  
+    }
+    else{
+      setSelected(filterValueLS);
+    }
   }, [selected]);
   
   

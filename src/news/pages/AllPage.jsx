@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NewsItem } from "../components/NewsItem";
 import { Pagination } from "../components/Pagination";
 import { useNews } from "../hooks/useNews";
@@ -16,6 +16,11 @@ export const AllPage = (optionSelection) => {
 
   //change the page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // useEffect(() => {
+  //   useNews(optionSelection);
+  // }, [optionSelection, ]);
+  
 
 
   return (
